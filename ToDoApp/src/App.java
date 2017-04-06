@@ -9,5 +9,6 @@ public class App {
     myToDoList.printUsage();
     myToDoList.showList();
     myToDoList.addTask();
+    myToDoList.removeTask();
   }
 }

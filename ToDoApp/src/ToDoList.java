@@ -8,7 +8,6 @@ import java.util.List;
  * Created by Bálint on 2017. 04. 06..
  */
 public class ToDoList {
-
   String[] args;
 
   public ToDoList(String[] args) {
@@ -52,12 +51,27 @@ public class ToDoList {
   }
 
   public void addTask() {
-    if (Arrays.toString(args).contains("-a")) {
+    if (args[0].contains("-a")) {
       String task = Arrays.toString(args).substring(5, (Arrays.toString(args).length() - 1));
       try {
         Path path = Paths.get("../files/todolist.txt");
         List<String> lines = Files.readAllLines(path);
+
         lines.add(task);
+        Files.write(path, lines);
+      } catch (Exception e) {
+        System.out.println("Error: " + e.getClass());
+      }
+    }
+  }
+
+  public void removeTask() {
+    if (args[0].contains("-r")) {
+      try {
+        Path path = Paths.get("../files/todolist.txt");
+        List<String> lines = Files.readAllLines(path);
+
+        lines.remove(Integer.parseInt(args[1]) - 1);
         Files.write(path, lines);
       } catch (Exception e) {
         System.out.println("Error: " + e.getClass());
