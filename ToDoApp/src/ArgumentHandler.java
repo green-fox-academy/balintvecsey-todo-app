@@ -1,8 +1,6 @@
-import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
@@ -43,8 +41,18 @@ public class ArgumentHandler {
             System.out.println(num + " - " + line);
           }
         }
-      } catch (IOException e) {
-        e.printStackTrace();
+      } catch (Exception e) {
+        System.out.println("Error: " + e.getClass());
+      }
+    } else if (Arrays.toString(args).contains("-a")) {
+      String task = Arrays.toString(args).substring(5, (Arrays.toString(args).length() - 1));
+      try {
+        Path path = Paths.get("../files/todolist.txt");
+        List<String> lines = Files.readAllLines(path);
+        lines.add(task);
+        Files.write(path, lines);
+      } catch (Exception e) {
+        System.out.println("Error: " + e.getClass());
       }
     }
   }
