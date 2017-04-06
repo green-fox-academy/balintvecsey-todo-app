@@ -4,7 +4,10 @@
 public class App {
 
   public static void main(String[] args) {
-    ArgumentHandler argument = new ArgumentHandler(args);
-    argument.arguments();
+    ToDoList myToDoList = new ToDoList(args);
+
+    myToDoList.printUsage();
+    myToDoList.showList();
+    myToDoList.addTask();
   }
 }
