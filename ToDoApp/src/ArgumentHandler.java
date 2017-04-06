@@ -30,20 +30,18 @@ public class ArgumentHandler {
         System.out.println("Error: " + e.getClass());
       }
     } else if (Arrays.toString(args).contains("-l")) {
-      List<String> content = new ArrayList<>();
-      content.add("Walk the dog");
-      content.add("Buy milk");
-      content.add("Do homework");
-      int num = 0;
-
       try {
         Path path = Paths.get("../files/todolist.txt");
-        Files.write(path, content);
         List<String> lines = Files.readAllLines(path);
+        int num = 0;
 
-        for (String line : lines) {
-          num++;
-          System.out.println(num + " - " + line);
+        if (lines.isEmpty()) {
+          System.out.println("No todos for today! :)");
+        } else {
+          for (String line : lines) {
+            num++;
+            System.out.println(num + " - " + line);
+          }
         }
       } catch (IOException e) {
         e.printStackTrace();
