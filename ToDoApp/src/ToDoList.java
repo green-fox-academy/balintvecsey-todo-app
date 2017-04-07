@@ -52,12 +52,13 @@ public class ToDoList {
 
   public void addTask() {
     if (args[0].contains("-a")) {
-      String task = Arrays.toString(args).substring(5, (Arrays.toString(args).length() - 1));
+      String task = args[1];
+      String undone = "[ ] ";
       try {
         Path path = Paths.get("../files/todolist.txt");
         List<String> lines = Files.readAllLines(path);
 
-        lines.add(task);
+        lines.add(undone + task);
         Files.write(path, lines);
       } catch (Exception e) {
         System.out.println("Error: " + e.getClass());
@@ -72,6 +73,21 @@ public class ToDoList {
         List<String> lines = Files.readAllLines(path);
 
         lines.remove(Integer.parseInt(args[1]) - 1);
+        Files.write(path, lines);
+      } catch (Exception e) {
+        System.out.println("Error: " + e.getClass());
+      }
+    }
+  }
+
+  public void checkTask() {
+    if (args[0].contains("-c")) {
+      try {
+        Path path = Paths.get("../files/todolist.txt");
+        List<String> lines = Files.readAllLines(path);
+        String task = lines.get(Integer.parseInt(args[1]) - 1);
+
+        lines.set(Integer.parseInt(args[1]) - 1, "[x] " + task.substring(4));
         Files.write(path, lines);
       } catch (Exception e) {
         System.out.println("Error: " + e.getClass());

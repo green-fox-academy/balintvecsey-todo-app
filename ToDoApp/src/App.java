@@ -10,5 +10,6 @@ public class App {
     myToDoList.showList();
     myToDoList.addTask();
     myToDoList.removeTask();
+    myToDoList.checkTask();
   }
 }
