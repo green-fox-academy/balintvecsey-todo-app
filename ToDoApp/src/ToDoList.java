@@ -15,17 +15,21 @@ public class ToDoList {
   }
 
   public void printUsage() {
-    if (args.length == 0) {
-      try {
-        Path path = Paths.get("../files/usage.txt");
-        List<String> lines = Files.readAllLines(path);
+    try {
+      Path path = Paths.get("../files/usage.txt");
+      List<String> lines = Files.readAllLines(path);
 
-        for (String usage : lines) {
-          System.out.println(usage);
-        }
-      } catch (Exception e) {
-        System.out.println("Error: " + e.getClass());
+      for (String usage : lines) {
+        System.out.println(usage);
       }
+    } catch (Exception e) {
+      System.out.println("Error: " + e.getClass());
+    }
+  }
+
+  public void zeroArg() {
+    if (args.length == 0) {
+      printUsage();
     }
   }
 
@@ -35,6 +39,7 @@ public class ToDoList {
         Path path = Paths.get("../files/todolist.txt");
         List<String> lines = Files.readAllLines(path);
         int num = 0;
+        System.out.println();
 
         if (lines.isEmpty()) {
           System.out.println("No todos for today! :)");
@@ -51,7 +56,7 @@ public class ToDoList {
   }
 
   public void addTask() {
-    if (args[0].contains("-a")) {
+    if (args[0].contains("-a") && args.length > 1) {
       String task = args[1];
       String undone = "[ ] ";
       try {
@@ -63,6 +68,8 @@ public class ToDoList {
       } catch (Exception e) {
         System.out.println("Error: " + e.getClass());
       }
+    } else if (args.length == 1){
+      System.out.println("Unable to add: no task provided");
     }
   }
 
@@ -91,6 +98,15 @@ public class ToDoList {
         Files.write(path, lines);
       } catch (Exception e) {
         System.out.println("Error: " + e.getClass());
+      }
+    }
+  }
+
+  public void invalidArg() {
+    if (args.length > 0) {
+      if (!(args[0].contains("-"))) {
+        System.out.println("\nUnsupported argument");
+        printUsage();
       }
     }
   }
